@@ -1,5 +1,11 @@
 {
-  "private": true,
+  "name": "stilren-types",
+  "description": "Companion types for stilren",
+  "repository": "git@github.com:danielwerthen/stilren-types.git",
+  "author": "<danielwerthen@gmail.com>",
+  "private": false,
+  "version": "0.1.0",
+  "license": "MIT",
   "dependencies": {
     "csstype": "^3.0.2"
   },
