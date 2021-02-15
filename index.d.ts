@@ -73,21 +73,13 @@ declare namespace React {
   //
   // Stilren Augments
   // ----------------------------------------------------------------------
-
-  interface AnyProps {
-    [key: string]: unknown;
-  }
-
-  type PrefixedAnyProps = {
-    [K in keyof AnyProps as `$${K}`]: AnyProps[K];
-  };
-
   type PrefixedProperties = {
     [K in keyof CSS.Properties as `$${K}`]: CSS.Properties[K];
-  };
+  } & { [key: string]: unknown };
+
   type PrefixedSvgProperties = {
     [K in keyof CSS.SvgProperties as `$${K}`]: CSS.SvgProperties[K];
-  };
+  } & { [key: string]: unknown };
 
   type StilrenStyleObject = (CSS.Properties | CSS.SvgProperties) & {
     [key: string]: unknown;
@@ -1560,6 +1552,7 @@ declare namespace React {
     dangerouslySetInnerHTML?: {
       __html: string;
     };
+    [key: string]: unknown;
 
     // Clipboard Events
     onCopy?: ClipboardEventHandler<T>;
@@ -1980,8 +1973,7 @@ declare namespace React {
   interface HTMLAttributes<T>
     extends AriaAttributes,
       DOMAttributes<T>,
-      PrefixedProperties,
-      PrefixedAnyProps {
+      PrefixedProperties {
     // React-specific Attributes
     defaultChecked?: boolean;
     defaultValue?: string | number | ReadonlyArray<string>;
@@ -2622,8 +2614,7 @@ declare namespace React {
   interface SVGAttributes<T>
     extends AriaAttributes,
       DOMAttributes<T>,
-      PrefixedSvgProperties,
-      PrefixedAnyProps {
+      PrefixedSvgProperties {
     // Attributes which also defined in HTMLAttributes
     // See comment in SVGDOMPropertyConfig.js
     className?: string;
