@@ -37,6 +37,7 @@
 
 import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
+import { StandardEngine } from "styletron-standard";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -1324,6 +1325,48 @@ declare namespace React {
   // the name of the custom hook is itself derived from the function name at runtime:
   // it's just the function name without the "use" prefix.
   function useDebugValue<T>(value: T, format?: (value: T) => any): void;
+
+  // Stilren helpers
+  // ----------------------------------------------------------------------
+  function getStylesheets(): ReactNode;
+  export type RenderStyleFn = {
+    (props: StilrenStyleObject): string;
+    styletron: StandardEngine;
+  };
+  export const defaultMediaPrefixes: {
+    small: string;
+    medium: string;
+    large: string;
+    portrait: string;
+    landscape: string;
+  };
+
+  function createRenderStyle(options: {
+    styletron: StandardEngine;
+    mediaPrefixes?: { [key: string]: string };
+    pseudoSuffixes?: { [key: string]: string };
+  }): RenderStyleFn;
+
+  export type StilrenOptions = {
+    styletron: StandardEngine;
+    mediaPrefixes?: { [key: string]: string };
+    pseudoSuffixes?: { [key: string]: string };
+  };
+
+  function initialize({
+    mediaPrefixes,
+    pseudoSuffixes,
+    styletron,
+  }: StilrenOptions): RenderStyleFn;
+
+  function getRenderer(): RenderStyleFn;
+
+  function transform(
+    tagName: unknown | string,
+    props?: { [key: string]: unknown } | null
+  ): { [key: string]: unknown } | null | undefined;
+
+  function useStyle(style: StilrenStyleObject): string;
 
   //
   // Event System
